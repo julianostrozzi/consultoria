@@ -649,13 +649,13 @@ body { margin: 0; }
       <h2 id="t-faq">Antes de chamar, talvez você queira saber</h2>
     </div>
     <div class="faq-list">
-      <details><summary>Quanto tempo leva para a minha operação ficar pronta?</summary><p>O Setup Completo segue um plano típico de 30 dias: diagnóstico, estrutura, catálogo e canais, e lançamento. Em projetos menores, as semanas 2 e 3 se comprimem. Quando as vendas começam depende do seu produto, do preço e do canal.</p></details>
-      <details><summary>Preciso trocar o sistema que já uso?</summary><p>Não precisa. Trabalho com Bling, Tiny, Anymarket, ERP e CRM, e começo pelo que você já usa.</p></details>
-      <details><summary>Em quais canais você atua?</summary><p>Mercado Livre, Amazon, Shopee, Magalu, Americanas e loja virtual própria.</p></details>
-      <details><summary>Qual a diferença entre Setup Parcial e Setup Completo?</summary><p>O Setup Parcial atende quem já começou e precisa ajustar ou concluir um canal, loja ou marketplace. O Setup Completo vale mais a pena para quem ainda não tem loja nem anúncios: cria a loja do zero e integra aos marketplaces.</p></details>
-      <details><summary>Como funcionam os valores?</summary><p>Os Setups são orçados de acordo com o tamanho da sua operação. O Diagnóstico Express parte de R$ 240, a consultoria por hora custa R$ 120 e o acompanhamento mensal parte de R$ 540, com até cinco horas por mês.</p></details>
-      <details><summary>Você garante vendas?</summary><p>Não prometo resultado. Os números de mercado e as simulações desta página são ilustrativos. Meu trabalho é estruturar a operação, otimizar anúncios e catálogo e acompanhar os indicadores para você decidir com números.</p></details>
-      <details><summary>Como eu começo?</summary><p>Chame no WhatsApp e conte o momento do seu negócio. Depois definimos o escopo e o pacote, e começamos pelo diagnóstico.</p></details>
+      <details name="faq"><summary>Quanto tempo leva para a minha operação ficar pronta?</summary><p>O Setup Completo segue um plano típico de 30 dias: diagnóstico, estrutura, catálogo e canais, e lançamento. Em projetos menores, as semanas 2 e 3 se comprimem. Quando as vendas começam depende do seu produto, do preço e do canal.</p></details>
+      <details name="faq"><summary>Preciso trocar o sistema que já uso?</summary><p>Não precisa. Trabalho com Bling, Tiny, Anymarket, ERP e CRM, e começo pelo que você já usa.</p></details>
+      <details name="faq"><summary>Em quais canais você atua?</summary><p>Mercado Livre, Amazon, Shopee, Magalu, Americanas e loja virtual própria.</p></details>
+      <details name="faq"><summary>Qual a diferença entre Setup Parcial e Setup Completo?</summary><p>O Setup Parcial atende quem já começou e precisa ajustar ou concluir um canal, loja ou marketplace. O Setup Completo vale mais a pena para quem ainda não tem loja nem anúncios: cria a loja do zero e integra aos marketplaces.</p></details>
+      <details name="faq"><summary>Como funcionam os valores?</summary><p>Os Setups são orçados de acordo com o tamanho da sua operação. O Diagnóstico Express parte de R$ 240, a consultoria por hora custa R$ 120 e o acompanhamento mensal parte de R$ 540, com até cinco horas por mês.</p></details>
+      <details name="faq"><summary>Você garante vendas?</summary><p>Não prometo resultado. Os números de mercado e as simulações desta página são ilustrativos. Meu trabalho é estruturar a operação, otimizar anúncios e catálogo e acompanhar os indicadores para você decidir com números.</p></details>
+      <details name="faq"><summary>Como eu começo?</summary><p>Chame no WhatsApp e conte o momento do seu negócio. Depois definimos o escopo e o pacote, e começamos pelo diagnóstico.</p></details>
     </div>
   </div>
 </section>
@@ -781,6 +781,18 @@ body { margin: 0; }
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
   targets.forEach(function (el) { io.observe(el); });
+})();
+</script>
+
+<script>
+(function () {
+  var list = document.querySelectorAll('.faq-list details');
+  Array.prototype.forEach.call(list, function (d) {
+    d.addEventListener('toggle', function () {
+      if (!d.open) return;
+      Array.prototype.forEach.call(list, function (o) { if (o !== d && o.open) o.open = false; });
+    });
+  });
 })();
 </script>
 
