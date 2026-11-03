@@ -963,9 +963,18 @@ body { margin: 0; }
 <script>
 (function(){
   function ev(n,p){try{if(window.gtag)gtag('event',n,p||{});}catch(e){}}
+  var src='';
+  try{
+    var q=new URLSearchParams(location.search).get('utm_source');
+    if(q){sessionStorage.setItem('strozzi_src',q.slice(0,30));}
+    src=sessionStorage.getItem('strozzi_src')||'';
+  }catch(e){}
   document.addEventListener('click',function(e){
     var a=e.target.closest&&e.target.closest('a[href*="wa.me"]');
-    if(a){ev('whatsapp_click',{link_text:(a.textContent||'').trim().slice(0,60),link_url:a.getAttribute('href').slice(0,120)});return;}
+    if(a){
+      if(src&&!a.dataset.srcDone){a.dataset.srcDone='1';a.href=a.href+encodeURIComponent(' (via '+src+')');}
+      ev('whatsapp_click',{link_text:(a.textContent||'').trim().slice(0,60),link_url:a.getAttribute('href').slice(0,120),origem:src||'direto'});return;
+    }
     var b=e.target.closest&&e.target.closest('.m-nav [data-go]');
     if(b){ev('tab_view',{tab_name:b.getAttribute('data-go')});}
   },true);
