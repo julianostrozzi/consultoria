@@ -226,6 +226,13 @@ h2.sig { font-size: clamp(40px, 10vw, 60px); line-height: 1.02; }
 .art.narrow { max-width: 340px; }
 .two { display: flex; flex-direction: column; gap: 32px; }
 
+/* Agendamento (agenda do Google incorporada) */
+.agendar-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.light .btn.agendar-cta { background: var(--accent); color: #FFFFFF; }
+.light .btn.agendar-cta:hover { background: var(--ink); color: #FFFFFF; }
+.agendar-wa { color: var(--ink); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--accent); }
+.agendar-wa:hover { color: var(--accent); }
+
 /* Tablet */
 @media (min-width: 700px) {
   .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -434,6 +441,8 @@ html.m .faq-list details p { padding: 0 18px 18px; font-size: 15.5px; }
 html.m .contact h2 { font-size: 32px; }
 html.m .contact .btn { align-self: stretch; }
 html.m .contact dd { font-size: 21px; }
+html.m .agendar-acoes { flex-direction: column; align-items: stretch; text-align: center; }
+html.m .agendar .btn { align-self: stretch; }
 html { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
 body { margin: 0; }
 </style>
@@ -458,7 +467,7 @@ body { margin: 0; }
 </svg>
 
 <script>
-(function(){var r=document.documentElement;try{if(matchMedia('(max-width: 699px)').matches){var h=(location.hash||'').slice(1);r.classList.add('m');r.setAttribute('data-t',['inicio','mercado','servicos','pacotes','contato'].indexOf(h)>-1?h:'inicio');}}catch(e){}})();
+(function(){var r=document.documentElement;try{if(matchMedia('(max-width: 699px)').matches){var h=(location.hash||'').slice(1);if(h==='agendar')h='contato';r.classList.add('m');r.setAttribute('data-t',['inicio','mercado','servicos','pacotes','contato'].indexOf(h)>-1?h:'inicio');}}catch(e){}})();
 </script>
 <div class="progress" id="progress" aria-hidden="true"></div>
 <a class="fab" id="fab" href="https://wa.me/5527992693208?text=Oi%20Juliano%2C%20vi%20sua%20p%C3%A1gina%20de%20consultoria%20em%20e-commerce%20e%20quero%20conversar." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
@@ -800,6 +809,27 @@ body { margin: 0; }
   </div>
 </section>
 
+<!-- Agendamento -->
+<section class="band light agendar" id="agendar" aria-labelledby="t-agendar" data-tab="contato">
+  <div class="in">
+    <div class="head">
+      <p class="eyebrow">Agendamento</p>
+      <h2 id="t-agendar">Agende a conversa de 15 minutos</h2>
+      <p class="lead">Escolha um horário na minha agenda. É uma conversa rápida, sem custo, para eu entender o momento do seu negócio e te dizer qual caminho faz mais sentido.</p>
+    </div>
+    <div class="steps s3">
+      <div class="step"><p class="n">1</p><p>Escolha o dia e o horário que ficam melhores para você.</p></div>
+      <div class="step"><p class="n">2</p><p>Você recebe o convite por e-mail, com o link da chamada de vídeo.</p></div>
+      <div class="step"><p class="n">3</p><p>Conversamos 15 minutos. Se fizer sentido, apresento o próximo passo.</p></div>
+    </div>
+    <div class="agendar-acoes">
+      <a class="btn agendar-cta" href="https://calendar.app.google/VEY8WR7DD1QH2AjC9" target="_blank" rel="noopener">Escolher um horário</a>
+      <a class="agendar-wa" href="https://wa.me/5527992693208?text=Ol%C3%A1%2C%20Juliano.%20Quero%20agendar%20a%20conversa%20de%2015%20minutos." target="_blank" rel="noopener">Prefere falar pelo WhatsApp?</a>
+    </div>
+    <p class="note">A conversa de 15 minutos é gratuita. O Diagnóstico Express, quando fizer sentido, é um serviço pago, a partir de R$ 340. O agendamento abre a minha agenda do Google em outra aba; os dados que você informar servem só para o agendamento.</p>
+  </div>
+</section>
+
 <!-- Contato -->
 <footer class="band dark wmk" id="contato" aria-labelledby="t-contato" data-tab="contato">
   <div class="in contact tall">
@@ -965,8 +995,22 @@ body { margin: 0; }
     if (mq.matches) { root.classList.add('m'); show(root.getAttribute('data-t') || cur, false); }
     else { root.classList.remove('m'); root.removeAttribute('data-t'); }
   }
+  var wantAg = location.hash === '#agendar';
   if (mq.addEventListener) mq.addEventListener('change', apply); else if (mq.addListener) mq.addListener(apply);
   apply();
+
+  /* Link .../#agendar: no celular abre a aba Contato e rola até a agenda */
+  function goAgendar() {
+    if ((!wantAg && location.hash !== '#agendar') || !mq.matches) return;
+    wantAg = false;
+    var el = document.getElementById('agendar');
+    if (!el) return;
+    show('contato', false);
+    try { history.replaceState(null, '', '#agendar'); } catch (e) {}
+    requestAnimationFrame(function () { el.scrollIntoView(); });
+  }
+  goAgendar();
+  window.addEventListener('hashchange', goAgendar);
 })();
 </script>
 
@@ -980,6 +1024,8 @@ body { margin: 0; }
     src=sessionStorage.getItem('strozzi_src')||'';
   }catch(e){}
   document.addEventListener('click',function(e){
+    var ag=e.target.closest&&e.target.closest('a[href*="calendar.app.google"]');
+    if(ag){ev('agendamento_click',{origem:src||'direto'});return;}
     var a=e.target.closest&&e.target.closest('a[href*="wa.me"]');
     if(a){
       if(src&&!a.dataset.srcDone){a.dataset.srcDone='1';a.href=a.href+encodeURIComponent(' (via '+src+')');}
