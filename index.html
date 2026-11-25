@@ -248,6 +248,8 @@ h2.sig { font-size: clamp(40px, 10vw, 60px); line-height: 1.02; }
   .site-nav .links a:hover { color: #FFFFFF; }
   .site-nav .btn { min-height: 40px; padding: 10px 20px; font-size: 12px; }
 }
+@media (max-width: 1279px) { .site-nav .links { gap: 18px; } .site-nav .links a { letter-spacing: 0.1em; font-size: 12px; } }
+@media (max-width: 1059px) { .site-nav .links { gap: 13px; } .site-nav .links a { letter-spacing: 0.06em; font-size: 11.5px; } }
 @media (max-width: 899px) { .site-nav .links { display: none; } }
 
 /* Desktop: a coluna se abre em duas e quatro colunas */
@@ -467,7 +469,7 @@ body { margin: 0; }
 </svg>
 
 <script>
-(function(){var r=document.documentElement;try{if(matchMedia('(max-width: 699px)').matches){var h=(location.hash||'').slice(1);if(h==='agendar')h='contato';r.classList.add('m');r.setAttribute('data-t',['inicio','mercado','servicos','pacotes','contato'].indexOf(h)>-1?h:'inicio');}}catch(e){}})();
+(function(){var r=document.documentElement;try{if(matchMedia('(max-width: 699px)').matches){var h=(location.hash||'').slice(1);if(h==='agendar'||h==='como-contratar')h='contato';r.classList.add('m');r.setAttribute('data-t',['inicio','mercado','servicos','pacotes','contato'].indexOf(h)>-1?h:'inicio');}}catch(e){}})();
 </script>
 <div class="progress" id="progress" aria-hidden="true"></div>
 <a class="fab" id="fab" href="https://wa.me/5527992693208?text=Oi%20Juliano%2C%20vi%20sua%20p%C3%A1gina%20de%20consultoria%20em%20e-commerce%20e%20quero%20conversar." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
@@ -477,7 +479,7 @@ body { margin: 0; }
 
 <nav class="site-nav" aria-label="Principal">
   <a href="#" aria-label="STROZZI, início"><img class="z" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0yOS41IC00OCA5NTIuNyA4NDYiPjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0tMjkuNSwxMzIgTDE1MC41LC00OCBMMTUwLjUsMCBMODkzLjcsMCBMMzA3LjIsNjE4IEw5MjMuMiw2MTggTDc0My4yLDc5OCBMNzQzLjIsNzUwIEwwLDc1MCBMNTg2LjUsMTMyIFoiLz48L3N2Zz4=" alt="STROZZI" width="953" height="846"></a>
-  <div class="links"><a href="#mercado">Mercado</a><a href="#servicos">Serviços</a><a href="#pacotes">Pacotes</a><a href="#perguntas">Perguntas</a><a href="#contato">Contato</a></div>
+  <div class="links"><a href="#mercado">Mercado</a><a href="#servicos">Serviços</a><a href="#pacotes">Pacotes</a><a href="#perguntas">Perguntas</a><a href="#como-contratar">Como contratar</a><a href="#agendar">Agendamento</a><a href="#contato">Contato</a></div>
   <a class="btn" href="https://wa.me/5527992693208?text=Oi%20Juliano%2C%20vi%20sua%20p%C3%A1gina%20de%20consultoria%20em%20e-commerce%20e%20quero%20conversar." target="_blank" rel="noopener">WhatsApp</a>
 </nav>
 
@@ -795,7 +797,7 @@ body { margin: 0; }
 </section>
 
 <!-- Próximos passos -->
-<section class="band light" aria-labelledby="t-prox" data-tab="contato">
+<section class="band light" id="como-contratar" aria-labelledby="t-prox" data-tab="contato">
   <div class="in">
     <div class="head">
       <p class="eyebrow">Como contratar</p>
