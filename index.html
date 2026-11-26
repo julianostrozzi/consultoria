@@ -19,7 +19,7 @@
 <meta property="og:image:alt" content="STROZZI, gestão estratégica de e-commerce, por Juliano Strozzi">
 <meta name="twitter:card" content="summary_large_image">
 <script>
-try{if(localStorage.getItem('strozzi_ga_off')==='1'){window['ga-disable-G-X9Q9LVCHCF']=true;}}catch(e){}
+try{var q=location.search.match(/[?&]medicao=(off|on)/);if(q){localStorage.setItem('strozzi_ga_off',q[1]==='off'?'1':'0');}if(localStorage.getItem('strozzi_ga_off')==='1'){window['ga-disable-G-X9Q9LVCHCF']=true;}}catch(e){}
 </script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-X9Q9LVCHCF"></script>
@@ -312,7 +312,6 @@ h2.sig { font-size: clamp(44px, 9vw, 68px); line-height: 1.05; }
 .foot { font-size: 14px; color: var(--on-dark-2); }
 .foot .sig { font-size: 28px; color: var(--mist); }
 .foot.small { margin-top: 8px; padding-top: 20px; border-top: 1px solid var(--line-dark); font-size: 13px; line-height: 1.6; }
-.ga-opt { display: inline-flex; align-items: center; min-height: 32px; padding: 0; border: 0; background: none; font: inherit; color: var(--mist); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 @media (min-width: 700px) { .contact dl { grid-template-columns: auto auto; justify-content: start; column-gap: 64px; } }
 
 /* Barra superior (computador e tablet) */
@@ -915,7 +914,7 @@ main:focus { outline: none; }
       <div><dt>Horário</dt><dd class="hours">Segunda a sexta, das 9h às 18h</dd></div>
     </dl>
     <p class="foot sig-line"><span class="sig">Juliano Strozzi</span></p>
-    <p class="foot small">Este site usa o Google Analytics e o Microsoft Clarity para medir visitas de forma agregada, sem identificar você. <button type="button" id="ga-opt" class="ga-opt">Não permitir medição</button></p>
+    <p class="foot small">Este site usa o Google Analytics e o Microsoft Clarity para medir visitas de forma agregada, sem identificar você.</p>
 
   </div>
 </footer>
@@ -1113,16 +1112,6 @@ main:focus { outline: none; }
     var d=e.target;
     if(d&&d.tagName==='DETAILS'&&d.open){var s=d.querySelector('summary');ev('faq_open',{question:s?s.textContent.trim().slice(0,100):''});}
   },true);
-  var t=document.getElementById('ga-opt');
-  if(t){
-    var off=false;try{off=localStorage.getItem('strozzi_ga_off')==='1';}catch(e){}
-    function label(){t.textContent=off?'Permitir medição':'Não permitir medição';}
-    label();
-    t.addEventListener('click',function(){
-      off=!off;try{localStorage.setItem('strozzi_ga_off',off?'1':'0');}catch(e){}
-      window['ga-disable-G-X9Q9LVCHCF']=off;label();
-    });
-  }
 })();
 </script>
 </body>
