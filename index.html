@@ -32,6 +32,12 @@ try{var q=location.search.match(/[?&]medicao=(off|on)/);if(q){localStorage.setIt
 <script>
 try{if(localStorage.getItem('strozzi_ga_off')!=='1'){(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z7x486pkl9");}}catch(e){}
 </script>
+<!-- Pixel do Meta (conjunto de dados "Site STROZZI"). Não carrega quando a medição está desligada (?medicao=off). -->
+<script>
+(function(){var off=false;try{off=localStorage.getItem('strozzi_ga_off')==='1';}catch(e){}if(off)return;
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','4795001357395961');fbq('track','PageView');})();
+</script>
 <title>STROZZI | Gestão Estratégica de E-commerce</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -914,7 +920,7 @@ main:focus { outline: none; }
       <div><dt>Horário</dt><dd class="hours">Segunda a sexta, das 9h às 18h</dd></div>
     </dl>
     <p class="foot sig-line"><span class="sig">Juliano Strozzi</span></p>
-    <p class="foot small">Este site usa o Google Analytics e o Microsoft Clarity para medir visitas de forma agregada, sem identificar você.</p>
+    <p class="foot small">Este site usa o Google Analytics e o Microsoft Clarity para medir visitas de forma agregada, e o Pixel do Meta para mostrar a STROZZI a quem já visitou o site no Facebook e no Instagram.</p>
 
   </div>
 </footer>
@@ -1091,6 +1097,7 @@ main:focus { outline: none; }
 <script>
 (function(){
   function ev(n,p){try{if(window.gtag)gtag('event',n,p||{});}catch(e){}}
+  function px(n){try{if(window.fbq)fbq('track',n);}catch(e){}}
   /* Origem padronizada com o CRM e as etiquetas: ig/instagram -> instagram; fb/facebook/m.facebook -> facebook */
   function origemPadrao(v){
     v=String(v||'').trim().toLowerCase().slice(0,30);
@@ -1107,11 +1114,11 @@ main:focus { outline: none; }
   }catch(e){}
   document.addEventListener('click',function(e){
     var ag=e.target.closest&&e.target.closest('a[href*="calendar.app.google"]');
-    if(ag){ev('agendamento_click',{origem:src||'direto'});return;}
+    if(ag){ev('agendamento_click',{origem:src||'direto'});px('Schedule');return;}
     var a=e.target.closest&&e.target.closest('a[href*="wa.me"]');
     if(a){
       if(src&&!a.dataset.srcDone){a.dataset.srcDone='1';a.href=a.href+encodeURIComponent(' (via '+src+')');}
-      ev('whatsapp_click',{link_text:(a.textContent||'').trim().slice(0,60),link_url:a.getAttribute('href').slice(0,120),origem:src||'direto'});return;
+      ev('whatsapp_click',{link_text:(a.textContent||'').trim().slice(0,60),link_url:a.getAttribute('href').slice(0,120),origem:src||'direto'});px('Contact');return;
     }
     var b=e.target.closest&&e.target.closest('.m-nav [data-go]');
     if(b){ev('tab_view',{tab_name:b.getAttribute('data-go')});}
