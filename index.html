@@ -1091,11 +1091,19 @@ main:focus { outline: none; }
 <script>
 (function(){
   function ev(n,p){try{if(window.gtag)gtag('event',n,p||{});}catch(e){}}
+  /* Origem padronizada com o CRM e as etiquetas: ig/instagram -> instagram; fb/facebook/m.facebook -> facebook */
+  function origemPadrao(v){
+    v=String(v||'').trim().toLowerCase().slice(0,30);
+    if(!v)return '';
+    if(v==='ig'||v.indexOf('instagram')>-1)return 'instagram';
+    if(v==='fb'||v.indexOf('facebook')>-1||/^(m|l|lm)\.fb\b|^fb\.(com|me)$/.test(v))return 'facebook';
+    return v;
+  }
   var src='';
   try{
     var q=new URLSearchParams(location.search).get('utm_source');
-    if(q){sessionStorage.setItem('strozzi_src',q.slice(0,30));}
-    src=sessionStorage.getItem('strozzi_src')||'';
+    if(q){sessionStorage.setItem('strozzi_src',origemPadrao(q));}
+    src=origemPadrao(sessionStorage.getItem('strozzi_src')||'');
   }catch(e){}
   document.addEventListener('click',function(e){
     var ag=e.target.closest&&e.target.closest('a[href*="calendar.app.google"]');
